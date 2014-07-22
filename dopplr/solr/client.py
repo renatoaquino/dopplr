@@ -50,8 +50,8 @@ def handle_search_response(query, callback):
                 log.error('Error searching solr: %s' % response.body)
                 callback(result)
             else:
-                numFound = result['response']['numFound']
-                log.info('Search returned "%s" results' % numFound)
+                if 'response' in result:
+                    log.info('Search returned "%s" results' % result['response']['numFound'])
                 callback(query.response_mapper(result))
     return inner_callback
 
